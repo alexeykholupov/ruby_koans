@@ -14,16 +14,11 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  s = (a + b + c) / 2.0
-  ok = (s - a) * (s - b) * (s - c)
-  raise TriangleError if a <= 0 || b <= 0 || c <= 0 || ok <= 0
-  if a == b && b == c
-    :equilateral
-  elsif a == b || a == c || b == c
-    :isosceles
-  else
-    :scalene
-  end
+  a, b, c = [a, b, c].sort
+  raise TriangleError if a <= 0 || a + b <= c
+  return :equilateral if a == c
+  return :isosceles if a == b || b == c
+  :scalene
 end
 
 # Error class used in part 2.  No need to change this code.
